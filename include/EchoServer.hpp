@@ -7,6 +7,4 @@ public:
 
     virtual void handleEvent(int fd);
 	void	echoing(int fd);
-
-// protected:
 };

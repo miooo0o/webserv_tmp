@@ -1,8 +1,4 @@
 #include "HttpServer.hpp"
-// HttpServer::HttpServer()
-// {
-// 	_type = "http";
-// };
 
 HttpServer::HttpServer() {};
 

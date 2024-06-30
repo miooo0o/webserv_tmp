@@ -18,4 +18,4 @@ This project aims to provide a foundational understanding of web server concepts
 1. Understand the basics of socket programming in C++.
 2. Implement an Echo server.                                   `<< Current Step`
 3. Design classes for an HTTP server.
-4. Implement a basic HTTP server.<
+4. Implement a basic HTTP server.

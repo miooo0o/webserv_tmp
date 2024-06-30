@@ -29,7 +29,6 @@ void EchoServer::handleEvent(int fd)
 	{
 		if (_clients.find(fd) == _clients.end())
 			throw std::runtime_error("[Echo Server] Client not found");
-
 		Client* client = _clients[fd];
 		ssize_t bytesRead = client->read();
 		if (bytesRead > 0)
@@ -44,11 +43,10 @@ void EchoServer::handleEvent(int fd)
 		else
 		{
 			_poller.removeFd(fd);
-            delete _clients[fd];
-            _clients.erase(fd);
+			delete _clients[fd];
+			_clients.erase(fd);
 			std::cerr << "[Echo Server] Error reading from socket: " << strerror(errno) << std::endl;
 			throw std::runtime_error("Failed to read from socket.");
-		
 		}
 	}
 }
