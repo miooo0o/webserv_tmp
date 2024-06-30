@@ -14,7 +14,11 @@ public:
 
 	const std::string&	getRequest() const;
 	std::string&		getModifyRequest();
+	std::string&		getResponse();
+	void				setResponse(const std::string& response);
+
 private:
 	int			_socketFd;
 	std::string	_request;
+	std::string _response;
 };

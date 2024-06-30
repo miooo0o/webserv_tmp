@@ -1,9 +1,13 @@
 #pragma once
 
-#include <map>
-#include <sys/ioctl.h>
-#include "Poller.hpp"
-#include "Client.hpp"
+# include <map>
+# include <sys/ioctl.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <signal.h>
+
+# include "Poller.hpp"
+# include "Client.hpp"
 
 #define INVALID_SOCKET_FD -1
 

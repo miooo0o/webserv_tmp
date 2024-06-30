@@ -1,9 +1,9 @@
-// #include "HttpServer.hpp"
+#include "HttpServer.hpp"
 #include "EchoServer.hpp"
 
 int main()
 {
-	EchoServer server;
+	HttpServer server;
 
 	try
 	{

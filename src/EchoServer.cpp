@@ -45,7 +45,6 @@ void EchoServer::handleEvent(int fd)
 			_poller.removeFd(fd);
 			delete _clients[fd];
 			_clients.erase(fd);
-			std::cerr << "[Echo Server] Error reading from socket: " << strerror(errno) << std::endl;
 			throw std::runtime_error("Failed to read from socket.");
 		}
 	}
@@ -64,12 +63,7 @@ void EchoServer::echoing(int fd)
 	}
 	else
 	{
-		std::cerr << "[Echo Server] Error reading from socket: " << strerror(errno) << std::endl;
-		if (errno == ENOTCONN)
-		{
-			std::cerr << "[Echo Server] Socket " << fd << " is not connected. Closing socket." << std::endl;
-			close(fd);
-		}
+		std::cerr << "[Echo Server] socket: " << fd << std::endl;
 		throw std::runtime_error("Failed to read from socket.");
 	}
 }

@@ -51,11 +51,18 @@ void BaseServer::startListening()
 
 void BaseServer::setNonBlocking(int sockfd)
 {
-	int flags = 1;
-	if (ioctl(sockfd, FIONBIO, &flags) < 0)
+	int flags = fcntl(sockfd, F_GETFL, 0);
+
+	if (flags == -1)
 	{
-		throw std::runtime_error("ioctl FIONBIO failed");
+		throw std::runtime_error("getting flags");
 	}
+	flags |= O_NONBLOCK;
+	if (fcntl(sockfd, F_SETFL, flags) == -1)
+	{
+		throw std::runtime_error("setting non-blocking");
+	}
+	
 }
 
 void BaseServer::init(int port)
@@ -73,18 +80,36 @@ void BaseServer::init(int port)
 
 }
 
+static void	ft_sigint_handler(int sig)
+{
+	(void)sig;
+	std::cout << "\rserver shutting down..." << std::endl;
+	exit(0);
+}
+
+
 void BaseServer::run()
 {
+	// Ignore SIGPIPE signals
+	signal(SIGPIPE, SIG_IGN);
+	// Set the signal handler for SIGINT signal
+	signal(SIGINT, ft_sigint_handler);
+
 	std::cout << "[Server] waiting for events...." << std::endl;
 	while (true)
 	{
-		// int eventCount = _poller.waitForEvents();
 		_poller.waitForEvents();
 		for (size_t i = 0; i < _poller.getPollfds().size(); ++i)
 		{
 			struct pollfd&  pfd = _poller.getPollfds()[i];
 			if (pfd.revents & POLLIN)
+			{
 				handleEvent(pfd.fd);
+			}
+			else if (pfd.revents & POLLERR)
+			{
+				std::cerr << "[Server] error on fd: " << pfd.fd << std::endl;
+			}
 		}
 	}
 	std::cout << "[Server] done" << std::endl;

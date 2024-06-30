@@ -30,7 +30,7 @@ ssize_t Client::read()
 		std::cerr << "[Client] Error reading from socket: " << strerror(errno) << std::endl;
 		throw std::runtime_error("Error reading from socket");
 	}
-	return totalBytesRead;
+	return (totalBytesRead);
 }
 
 ssize_t Client::write(const std::string& response)
@@ -47,4 +47,14 @@ const std::string& Client::getRequest() const
 std::string& Client::getModifyRequest()
 {
 	return (_request);
+}
+
+std::string& Client::getResponse()
+{
+	return (_response);
+}
+
+void Client::setResponse(const std::string& response)
+{
+	_response = response;
 }
