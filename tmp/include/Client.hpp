@@ -12,10 +12,10 @@ public:
 	virtual ssize_t	read();
 	virtual ssize_t	write(const std::string& response);
 
-	const std::string&	getRequest() const;
-	std::string&		getModifyRequest();
-	std::string&		getResponse();
-	void				setResponse(const std::string& response);
+	// const std::string&	getRequest() const;
+	// std::string&		getModifyRequest();
+	// std::string&		getResponse();
+	// void				setResponse(const std::string& response);
 
 private:
 	int			_socketFd;
